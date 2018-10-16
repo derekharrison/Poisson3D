@@ -168,20 +168,20 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1]=b3;
 		A[nn][2]=b2;
 		A[nn][3]=b1;
 		A[nn][4]=a8;
 		r[nn]= source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating corner 1 coefficients
 	for (i = 1; i <= 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = 0;
@@ -189,13 +189,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a1;
 		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating side a cofficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = 0;
@@ -203,13 +203,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a2;
 		r[nn] = -2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating corner 2 coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = 0;
@@ -217,13 +217,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a1;
 		r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating side d coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = b2;
@@ -231,13 +231,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a3;
 		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating face E coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = b2;
@@ -245,13 +245,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a4;
 		r[nn] = -2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating side b coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = b2;
@@ -259,13 +259,13 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a3;
 		r[nn] = -2*b1*fixed_boundaries.Te - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating corner 4 coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 1; k <= 1; k++)
-		{
+	{
 		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
 		A[nn][1] = 0;
 		A[nn][2] = b2;
@@ -273,273 +273,273 @@ void generate_coefficient_matrix(domain_size_t domain_size,
 		A[nn][4] = a1;
 		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
 				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	}
 
 	//Generating side c coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 1; k <= 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = 0;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a2;
-			r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = 0;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a2;
+		r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating corner 3 coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 1; k <= 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = 0;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a1;
-			r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = 0;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a1;
+		r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side e coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = 0;
-			A[nn][4] = a5;
-			r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = 0;
+		A[nn][4] = a5;
+		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating face A coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = b1;
-			A[nn][4] = a6;
-			r[nn] = -2*b2*fixed_boundaries.Ts +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = b1;
+		A[nn][4] = a6;
+		r[nn] = -2*b2*fixed_boundaries.Ts +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side f coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = b1;
-			A[nn][4] = a5;
-			r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = b1;
+		A[nn][4] = a5;
+		r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating face D coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = 0;
-			A[nn][4] = a7;
-			r[nn] = -2*b1*fixed_boundaries.Tw +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = 0;
+		A[nn][4] = a7;
+		r[nn] = -2*b1*fixed_boundaries.Tw +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating face B coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a7;
-			r[nn] = -2*b1*fixed_boundaries.Te +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a7;
+		r[nn] = -2*b1*fixed_boundaries.Te +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side h coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = 0;
-			A[nn][4] = a5;
-			r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = 0;
+		A[nn][4] = a5;
+		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating face C coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a6;
-			r[nn] = -2*b2*fixed_boundaries.Tn +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a6;
+		r[nn] = -2*b2*fixed_boundaries.Tn +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side g coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = 2; k <= grid_size.nz - 1; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a5;
-			r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Tn +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a5;
+		r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Tn +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating corner 5 coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = 0;
-			A[nn][4] = a1;
-			r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = 0;
+		A[nn][4] = a1;
+		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side i coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = b1;
-			A[nn][4] = a2;
-			r[nn] = -2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = b1;
+		A[nn][4] = a2;
+		r[nn] = -2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating corner 6 coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 1; j <= 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = 0;
-			A[nn][3] = b1;
-			A[nn][4] = a1;
-			r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = 0;
+		A[nn][3] = b1;
+		A[nn][4] = a1;
+		r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side l coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = 0;
-			A[nn][4] = a3;
-			r[nn] = -2*b1*fixed_boundaries.Tw - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = 0;
+		A[nn][4] = a3;
+		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating face F coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a4;
-			r[nn] = -2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a4;
+		r[nn] = -2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side j coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = 2; j <= grid_size.ny - 1; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a3;
-			r[nn] = -2*b1*fixed_boundaries.Te - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a3;
+		r[nn] = -2*b1*fixed_boundaries.Te - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating corner 8 coefficients and source terms
 	for (i = 1; i <= 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = 0;
-			A[nn][4] = a1;
-			r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = 0;
+		A[nn][4] = a1;
+		r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating side k coefficients and source terms
 	for (i = 2; i <= grid_size.nx - 1; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a2;
-			r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a2;
+		r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 	//Generating corner 7 coefficients and source terms
 	for (i = grid_size.nx; i <= grid_size.nx; i++)
 	for (j = grid_size.ny; j <= grid_size.ny; j++)
 	for (k = grid_size.nz; k <= grid_size.nz; k++)
-		{
-			nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
-			A[nn][1] = b3;
-			A[nn][2] = b2;
-			A[nn][3] = b1;
-			A[nn][4] = a1;
-			r[nn] = -2*b1*fixed_boundaries.Te -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
-					 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
-		}
+	{
+		nn = i + (j-1)*grid_size.nx + (k-1)*grid_size.nx*grid_size.ny;
+		A[nn][1] = b3;
+		A[nn][2] = b2;
+		A[nn][3] = b1;
+		A[nn][4] = a1;
+		r[nn] = -2*b1*fixed_boundaries.Te -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
+				 source(grid_coordinates->X[i][j][k], grid_coordinates->Y[i][j][k], grid_coordinates->Z[i][j][k]);
+	}
 
 }
 
