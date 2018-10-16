@@ -13,11 +13,11 @@
 
 /*-------------------------------------------------------------------------------*/
 void vector_addition(double *v1,
-					 double factor_v1,
-					 double *v2,
-					 double factor_v2,
-					 int size_vector,
-					 double *output_vector)
+                     double factor_v1,
+                     double *v2,
+                     double factor_v2,
+                     int size_vector,
+                     double *output_vector)
 {
 	/*
 	 * Addition of vectors of type double
