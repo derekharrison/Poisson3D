@@ -33,6 +33,7 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                                  grid_size_t grid_size,
                                  double gamma,
                                  double (*source)(double x,double y,double z),
+                                 double* x_guess,
                                  grid_coordinates_t* grid_coordinates,
                                  double* r,
                                  double** A);

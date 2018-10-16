@@ -123,6 +123,7 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                                  grid_size_t grid_size,
                                  double gamma,
                                  double (*source)(double x,double y,double z),
+                                 double* x_guess,
                                  grid_coordinates_t* grid_coordinates,
                                  double* r,
                                  double** A)
@@ -187,7 +188,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         A[nn][4]=a8;
         r[nn]= source(grid_coordinates->X[i][j][k],
                       grid_coordinates->Y[i][j][k],
-                      grid_coordinates->Z[i][j][k]);
+                      grid_coordinates->Z[i][j][k]) -
+              (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+               b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+               b2*x_guess[nn+grid_size.nx] + b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating corner 1 coefficients
@@ -204,7 +208,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side a cofficients and source terms
@@ -220,7 +226,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b2*x_guess[nn+grid_size.nx] + b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating corner 2 coefficients and source terms
@@ -237,7 +245,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side d coefficients and source terms
@@ -253,7 +263,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Tw - 2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b2*x_guess[nn+grid_size.nx] + b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating face E coefficients and source terms
@@ -269,7 +281,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] +
+                 b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side b coefficients and source terms
@@ -285,7 +300,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Te - 2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] +
+                 b2*x_guess[nn+grid_size.nx] + b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating corner 4 coefficients and source terms
@@ -302,7 +319,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side c coefficients and source terms
@@ -318,7 +337,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] +
+                 b1*x_guess[nn+1] + b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating corner 3 coefficients and source terms
@@ -335,7 +356,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tb +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b2*x_guess[nn-grid_size.nx] + b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side e coefficients and source terms
@@ -351,7 +374,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Ts +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + A[nn][4]*x_guess[nn] +
+                 b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating face A coefficients and source terms
@@ -367,7 +393,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Ts +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b1*x_guess[nn-1] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side f coefficients and source terms
@@ -383,7 +412,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Ts +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b1*x_guess[nn-1] +
+                 A[nn][4]*x_guess[nn] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating face D coefficients and source terms
@@ -399,7 +431,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Tw +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating face B coefficients and source terms
@@ -415,7 +450,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Te +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b2*x_guess[nn+grid_size.nx] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side h coefficients and source terms
@@ -431,7 +469,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Tw - 2*b2*fixed_boundaries.Tn +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating face C coefficients and source terms
@@ -447,7 +488,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Tn +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating side g coefficients and source terms
@@ -463,7 +507,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Te - 2*b2*fixed_boundaries.Tn +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] +
+                 b3*x_guess[nn+grid_size.nx*grid_size.ny]);
     }
 
     //Generating corner 5 coefficients and source terms
@@ -480,7 +527,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + A[nn][4]*x_guess[nn] +
+                 b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating side i coefficients and source terms
@@ -496,7 +545,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Ts - 2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b1*x_guess[nn-1] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating corner 6 coefficients and source terms
@@ -513,7 +564,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b1*x_guess[nn-1] +
+                 A[nn][4]*x_guess[nn] + b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating side l coefficients and source terms
@@ -529,7 +582,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Tw - 2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] + b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating face F coefficients and source terms
@@ -545,7 +600,10 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1] +
+                 b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating side j coefficients and source terms
@@ -561,7 +619,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b1*fixed_boundaries.Te - 2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b2*x_guess[nn+grid_size.nx]);
     }
 
     //Generating corner 8 coefficients and source terms
@@ -578,7 +638,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 A[nn][4]*x_guess[nn] + b1*x_guess[nn+1]);
     }
 
     //Generating side k coefficients and source terms
@@ -594,7 +656,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
         r[nn] = -2*b2*fixed_boundaries.Tn - 2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn] + b1*x_guess[nn+1]);
     }
 
     //Generating corner 7 coefficients and source terms
@@ -611,7 +675,9 @@ void generate_coefficient_matrix(domain_size_t domain_size,
                  2*b3*fixed_boundaries.Tt +
                  source(grid_coordinates->X[i][j][k],
                         grid_coordinates->Y[i][j][k],
-                        grid_coordinates->Z[i][j][k]);
+                        grid_coordinates->Z[i][j][k]) -
+                (b3*x_guess[nn-grid_size.nx*grid_size.ny] + b2*x_guess[nn-grid_size.nx] +
+                 b1*x_guess[nn-1] + A[nn][4]*x_guess[nn]);
     }
 
 }

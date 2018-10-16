@@ -29,7 +29,7 @@ static double source_equation(double x,double y,double z)
      * The function can depend on x, y and z coordinates.
      *
      * input    x
-     * input     y
+     * input    y
      * input    z
      */
 
@@ -46,33 +46,33 @@ int main(int argc, char *argv[])
      * Parameters and boundary conditions are specified here
      */
 
-    double                              gam = 0.0;
-    bool                       exportData = FALSE;
-    domain_size_t              domain_size = {0};
+    double                           gam = 0.0;
+    bool                      exportData = FALSE;
+    domain_size_t            domain_size = {0};
     grid_size_t                grid_size = {0};
     fixed_boundaries_t  fixed_boundaries = {0};
     grid_coordinates_t* grid_coordinates = NULL;
-    double***                            T = NULL;
+    double***                          T = NULL;
 
     /*Set parameters and boundary conditions*/
-    domain_size.Lx = 1.0;                   //length of domain along x coordinate
-    domain_size.Ly = 1.0;                    //length of domain along y coordinate
-    domain_size.Lz = 1.0;                   //length of domain along z coordinate
+    domain_size.Lx = 5.0;                   //length of domain along x coordinate
+    domain_size.Ly = 1.0;                   //length of domain along y coordinate
+    domain_size.Lz = 5.0;                   //length of domain along z coordinate
 
-    grid_size.nx = 4;                        //amount of nodes along x coordinate
-    grid_size.ny = 4;                        //amount of nodes along y coordinate
-    grid_size.nz = 4;                        //amount of nodes along z coordinate
+    grid_size.nx = 4;                       //amount of nodes along x coordinate
+    grid_size.ny = 5;                       //amount of nodes along y coordinate
+    grid_size.nz = 6;                       //amount of nodes along z coordinate
 
-    gam = 1.0;                                //poisson equation constant
+    gam = 2.0;                              //poisson equation constant
 
-    fixed_boundaries.Tw = 0.0;              //west face boundary condition
-    fixed_boundaries.Te = 0.0;              //east face boundary condition
-    fixed_boundaries.Ts = 0.0;              //south face boundary condition
-    fixed_boundaries.Tn = 0.0;              //north face boundary condition
-    fixed_boundaries.Tb = 0.0;                //bottom face boundary condition
-    fixed_boundaries.Tt = 0.0;                //top face boundary condition
+    fixed_boundaries.Tw = 1.0;              //west face boundary condition
+    fixed_boundaries.Te = 2.0;              //east face boundary condition
+    fixed_boundaries.Ts = 3.0;              //south face boundary condition
+    fixed_boundaries.Tn = 0.5;              //north face boundary condition
+    fixed_boundaries.Tb = 1.3;              //bottom face boundary condition
+    fixed_boundaries.Tt = 2.1;              //top face boundary condition
 
-    exportData = TRUE;                        //data export guard
+    exportData = TRUE;                      //data export guard
 
 
     /*Allocating memory for output of poisson solver*/

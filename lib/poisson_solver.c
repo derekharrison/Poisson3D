@@ -19,10 +19,10 @@
 void poisson_solver(domain_size_t domain_size,
                     fixed_boundaries_t fixed_boundaries,
                     grid_size_t grid_size,
-                       double gamma,
-                       double (*source)(double x,double y,double z),
-                       grid_coordinates_t* grid_coordinates,
-                       double ***T)
+                    double gamma,
+                    double (*source)(double x,double y,double z),
+                    grid_coordinates_t* grid_coordinates,
+                    double ***T)
 {
     /*
      * This function solves the 3D poisson equation gamma*div(grad(T))+q(x,y,z,c) = 0
@@ -61,8 +61,8 @@ void poisson_solver(domain_size_t domain_size,
     begin = clock();
 
     /*Setting variables and coefficients*/
-    imax     = 5000;         //Maximum iterations ICCG
-    error     = 1e-30;        //Tolerance
+    imax  = 5000;         //Maximum iterations ICCG
+    error = 1e-30;        //Tolerance
 
     nt = grid_size.nx*grid_size.ny*grid_size.nz;
 
@@ -72,9 +72,13 @@ void poisson_solver(domain_size_t domain_size,
     y         = matrix1D(nt+1);
     z         = matrix1D(nt+1);
     p         = matrix1D(nt+1);
-    Ap         = matrix1D(nt+1);
+    Ap        = matrix1D(nt+1);
     x         = matrix1D(nt+1);
     r         = matrix1D(nt+1);
+
+    /*Initial guess x*/
+    for (j = 1; j <= nt; j++)
+        x[j] = -10.0;
 
     /*Generate coefficient matrix*/
     generate_coefficient_matrix(domain_size,
@@ -82,11 +86,12 @@ void poisson_solver(domain_size_t domain_size,
                                 grid_size,
                                 gamma,
                                 source,
+                                x,
                                 grid_coordinates,
                                 r,
                                 A);
 
-    /* ICCG preconditioning */
+    /*ICCG preconditioning*/
     // Incomplete Cholesky factorization of coefficient matrix A
     incomplete_cholesky_factorization(grid_size, A, L);
 
@@ -102,10 +107,6 @@ void poisson_solver(domain_size_t domain_size,
     //Setting p = z
     for (j=1;j<=nt;j++)
         p[j]=z[j];
-
-    //Initializing x
-    for (j = 1; j <= nt; j++)
-        x[j] = 0.0;
 
     /*Solver iterations*/
     it = 0;
