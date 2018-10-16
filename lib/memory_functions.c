@@ -11,7 +11,7 @@
 #include "../inc/user_types.h"
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void free_memory_1D_int(int* ptr)
 {
     /*
@@ -25,7 +25,7 @@ void free_memory_1D_int(int* ptr)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void free_memory_1D(double* ptr)
 {
     /*
@@ -39,7 +39,7 @@ void free_memory_1D(double* ptr)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void free_memory_2D(double** ptr, int nx)
 {
     /*
@@ -59,7 +59,7 @@ void free_memory_2D(double** ptr, int nx)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void free_memory_3D(double*** ptr, int nx, int ny)
 {
     /*
@@ -84,7 +84,7 @@ void free_memory_3D(double*** ptr, int nx, int ny)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 int *matrix1D_int(int nx)
 {
     /*
@@ -92,7 +92,7 @@ int *matrix1D_int(int nx)
      *
      * input    nx
      *
-     * return    m
+     * return   m
      */
 
     int *m = (int *) calloc(nx, sizeof(int));
@@ -108,7 +108,7 @@ int *matrix1D_int(int nx)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 double *matrix1D(int nx)
 {
     /*
@@ -116,7 +116,7 @@ double *matrix1D(int nx)
      *
      * input    nx
      *
-     * return    m
+     * return   m
      */
 
     double *m = (double *) calloc(nx, sizeof(double));
@@ -132,7 +132,7 @@ double *matrix1D(int nx)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 double **matrix2D( int nx, int ny)
 {
     /*
@@ -141,7 +141,7 @@ double **matrix2D( int nx, int ny)
      * input    nx
      * input    ny
      *
-     * return    m
+     * return   m
      */
 
     int i;
@@ -170,7 +170,7 @@ double **matrix2D( int nx, int ny)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 double ***matrix3D( int nx, int ny, int nz)
 {
     /*
@@ -180,7 +180,7 @@ double ***matrix3D( int nx, int ny, int nz)
      * input    ny
      * input    nz
      *
-     * return    m
+     * return   m
      */
 
     int i,j;
@@ -215,7 +215,7 @@ double ***matrix3D( int nx, int ny, int nz)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 grid_coordinates_t* allocate_mem_grid_coordinates(int nx, int ny, int nz)
 {
     /*
@@ -225,7 +225,7 @@ grid_coordinates_t* allocate_mem_grid_coordinates(int nx, int ny, int nz)
      * input    y
      * input    z
      *
-     * return    grid_coordinates
+     * return   grid_coordinates
      */
 
     grid_coordinates_t* grid_coordinates = malloc(sizeof(grid_coordinates_t));
@@ -238,14 +238,14 @@ grid_coordinates_t* allocate_mem_grid_coordinates(int nx, int ny, int nz)
 }
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void free_grid_coordinates(grid_coordinates_t* grid_coordinates, int nx, int ny)
 {
     /*
      * Deallocate memory used for grid coordinates
      *
      * input    grid_coordinates
-     * input     nx
+     * input    nx
      * input    ny
      */
 

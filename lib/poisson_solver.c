@@ -15,7 +15,7 @@
 #include "../inc/user_types.h"
 
 
-/*-------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 void poisson_solver(domain_size_t domain_size,
                     fixed_boundaries_t fixed_boundaries,
                     grid_size_t grid_size,
@@ -47,7 +47,7 @@ void poisson_solver(domain_size_t domain_size,
      * input     gamma
      * input     source(x,y,z)
      * output    grid_coordinates
-     * output     T
+     * output    T
      */
 
     double epsilon, delold, delnew, pAp, error;
