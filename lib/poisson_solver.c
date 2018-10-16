@@ -25,7 +25,7 @@ void poisson_solver(domain_size_t domain_size,
                     double ***T)
 {
     /*
-     * This function solves the 3D poisson equation gamma*div(grad(T))+q(x,y,z,c) = 0
+     * This function solves the 3D poisson equation gamma*div(grad(T))+q(x,y,z) = 0
      * with fixed boundary conditions.
      *
      * The equation is solved using a preconditioned conjugate gradient method with
