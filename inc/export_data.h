@@ -12,8 +12,8 @@
 
 
 void export_data(char* file_name,
-				 char* type_data,
-				 grid_size_t grid_size,
-				 double ***ptr);
+                 char* type_data,
+                 grid_size_t grid_size,
+                 double ***ptr);
 
 #endif /* EXPORT_DATA_H_ */
