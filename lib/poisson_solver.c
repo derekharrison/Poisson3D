@@ -104,10 +104,6 @@ void poisson_solver(domain_size_t domain_size,
     //epsilon = r'*r;
     dot_product(r, r, nt, &epsilon);
 
-    //Setting p = z
-//    for (j=1;j<=nt;j++)
-//        p[j]=z[j];
-
     /*Solver iterations*/
     it = 0;
     do
