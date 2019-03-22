@@ -78,7 +78,7 @@ void poisson_solver(domain_size_t domain_size,
 
     /*Initial guess x*/
     for (j = 1; j <= nt; j++)
-        x[j] = -10.0;
+        x[j] = 0.0;
 
     /*Generate coefficient matrix*/
     generate_coefficient_matrix(domain_size,
@@ -99,24 +99,24 @@ void poisson_solver(domain_size_t domain_size,
     Ly_solver(grid_size, L, r, y);
 
     //Solving L'z=y
-    LTz_solver(grid_size, L, y, z);
+    LTz_solver(grid_size, L, y, p);
 
     //epsilon = r'*r;
     dot_product(r, r, nt, &epsilon);
 
     //Setting p = z
-    for (j=1;j<=nt;j++)
-        p[j]=z[j];
+//    for (j=1;j<=nt;j++)
+//        p[j]=z[j];
 
     /*Solver iterations*/
     it = 0;
     do
     {
+        //delold = r'*z
+        dot_product(r, p, nt, &delold);
+
         //Calculating A*p
         mat_vec_mult(grid_size, A, p, Ap);
-
-        //delold = r'*z
-        dot_product(r, z, nt, &delold);
 
         //p'*Ap
         dot_product(p, Ap, nt, &pAp);
