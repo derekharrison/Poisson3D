@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
      * Parameters and boundary conditions are specified here
      */
 
-    double                           gam = 0.0;
+    double                         gamma = 0.0;
     bool                      exportData = FALSE;
     domain_size_t            domain_size = {0};
     grid_size_t                grid_size = {0};
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     grid_size.ny = 5;                       //amount of nodes along y coordinate
     grid_size.nz = 6;                       //amount of nodes along z coordinate
 
-    gam = 2.0;                              //poisson equation constant
+    gamma = 2.0;                            //poisson equation constant
 
     fixed_boundaries.Tw = 1.0;              //west face boundary condition
     fixed_boundaries.Te = 2.0;              //east face boundary condition
@@ -84,8 +84,8 @@ int main(int argc, char *argv[])
     poisson_solver(domain_size,
                    fixed_boundaries,
                    grid_size,
-                   gam,
-                   &source_equation,
+                   gamma,
+                   source_equation,
                    grid_coordinates,
                    T);
 
