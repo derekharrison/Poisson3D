@@ -33,7 +33,7 @@ static double source_equation(double x,double y,double z)
      * input    z
      */
 
-    return 100.0;
+    return sin(M_PI*x) * sin(M_PI*y) * sin(M_PI*z);
 
 }
 
@@ -55,22 +55,22 @@ int main(int argc, char *argv[])
     double***                          T = NULL;
 
     /*Set parameters and boundary conditions*/
-    domain_size.Lx = 5.0;                   //length of domain along x coordinate
+    domain_size.Lx = 1.0;                   //length of domain along x coordinate
     domain_size.Ly = 1.0;                   //length of domain along y coordinate
-    domain_size.Lz = 5.0;                   //length of domain along z coordinate
+    domain_size.Lz = 1.0;                   //length of domain along z coordinate
 
-    grid_size.nx = 4;                       //amount of nodes along x coordinate
-    grid_size.ny = 5;                       //amount of nodes along y coordinate
-    grid_size.nz = 6;                       //amount of nodes along z coordinate
+    grid_size.nx = 10;                       //amount of nodes along x coordinate
+    grid_size.ny = 10;                       //amount of nodes along y coordinate
+    grid_size.nz = 10;                       //amount of nodes along z coordinate
 
-    gamma = 2.0;                            //poisson equation constant
+    gamma = 1.0;                            //poisson equation constant
 
-    fixed_boundaries.Tw = 1.0;              //west face boundary condition
-    fixed_boundaries.Te = 2.0;              //east face boundary condition
-    fixed_boundaries.Ts = 3.0;              //south face boundary condition
-    fixed_boundaries.Tn = 0.5;              //north face boundary condition
-    fixed_boundaries.Tb = 1.3;              //bottom face boundary condition
-    fixed_boundaries.Tt = 2.1;              //top face boundary condition
+    fixed_boundaries.Tw = 0.0;              //west face boundary condition
+    fixed_boundaries.Te = 0.0;              //east face boundary condition
+    fixed_boundaries.Ts = 0.0;              //south face boundary condition
+    fixed_boundaries.Tn = 0.0;              //north face boundary condition
+    fixed_boundaries.Tb = 0.0;              //bottom face boundary condition
+    fixed_boundaries.Tt = 0.0;              //top face boundary condition
 
     exportData = TRUE;                      //data export guard
 
@@ -78,7 +78,6 @@ int main(int argc, char *argv[])
     /*Allocating memory for output of poisson solver*/
     grid_coordinates = allocate_mem_grid_coordinates(grid_size.nx+1, grid_size.ny+1, grid_size.nz+1);
     T = matrix3D(grid_size.nx+1, grid_size.ny+1, grid_size.nz+1);
-
 
     /*Calling poisson solver*/
     poisson_solver(domain_size,
@@ -89,7 +88,6 @@ int main(int argc, char *argv[])
                    grid_coordinates,
                    T);
 
-
     /*Exporting data*/
     if(exportData)
     {
@@ -98,7 +96,6 @@ int main(int argc, char *argv[])
         export_data("GridY.txt", "Y grid coordinates", grid_size, grid_coordinates->Y);
         export_data("GridZ.txt", "Z grid coordinates", grid_size, grid_coordinates->Z);
     }
-
 
     /*Deallocate memory*/
     free_grid_coordinates(grid_coordinates, grid_size.nx+1, grid_size.ny+1);
