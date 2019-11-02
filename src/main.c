@@ -33,7 +33,7 @@ static double source_equation(double x,double y,double z)
      * input    z
      */
 
-    return sin(M_PI*x) * sin(M_PI*y) * sin(M_PI*z);
+    return -sin(M_PI*x) * sin(M_PI*y) * sin(M_PI*z);
 
 }
 
